@@ -5,6 +5,11 @@ import store from './store'
 // 导入axios
 import http from './network/request'
 
+// 导入normalize
+import('./assets/css/normalize.css')
+// 导入全局css样式
+import('./assets/css/global.css')
+
 Vue.config.productionTip = false
 
 // 添加到原型上
