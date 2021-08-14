@@ -19,11 +19,11 @@
           <a href="#">Select Location</a>
         </div>
         <div class="topbar-cart">
-          <a href="#">
+          <router-link to="/cart">
             <i class="el-icon-shopping-cart-1"></i>
             <span>购物车</span>
             <span>(0)</span>
-          </a>
+          </router-link>
 
           <div class="cart-menu">
             <el-row>
@@ -142,6 +142,7 @@ export default {
 
 <style lang="less" scoped>
 .header {
+  background-color: #fff;
   .site-topbar {
     width: 100%;
     height: 40px;

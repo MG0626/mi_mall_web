@@ -70,6 +70,7 @@
 
 <style lang="less" scoped>
 .footer{
+  background-color: #fff;
   .container{
     .top{
       height: 60px;

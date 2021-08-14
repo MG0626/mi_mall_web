@@ -17,7 +17,9 @@ import {
   Row,
   Message,
   Alert,
-  Checkbox
+  Checkbox,
+  InputNumber,
+  MessageBox
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -38,7 +40,8 @@ Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Alert);
 Vue.use(Checkbox);
+Vue.use(InputNumber);
 
 Vue.prototype.$message = Message;
-
+Vue.prototype.$confirm = MessageBox.confirm;
 

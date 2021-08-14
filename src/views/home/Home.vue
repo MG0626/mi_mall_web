@@ -28,6 +28,7 @@ export default {
 <style lang="less" scoped>
 .home{
   // position: relative;
+  background-color: #fff;
   .back-top{
     position: fixed;
     bottom: 44px;

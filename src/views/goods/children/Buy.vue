@@ -131,6 +131,7 @@
   padding-top: 32px;
   padding-bottom: 12px;
   font-size: 14px;
+  background-color: #fff;
   .container{
     display: flex;
     justify-content: space-between;

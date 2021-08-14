@@ -11,10 +11,9 @@ const actions = {
     commit('saveUserInfo', products);
   },
   // 获取购物车
-  getCarts: async function({ commit, state }, products){
+  getCarts: async function({ commit, state }){
     // 获取购物车列表
     const { data } = await http.get(`/cart/list/${state.info.id}`);
-    console.log(data);
     commit('addCarts', data);
   },
   // 添加购物车
