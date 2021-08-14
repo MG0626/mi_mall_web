@@ -1,4 +1,6 @@
 import axios from 'axios';
+// vuex
+import store from '../store';
 
 const http = axios.create({
   baseURL: 'http://localhost:4001',
@@ -7,6 +9,8 @@ const http = axios.create({
 
 // 请求拦截器
 http.interceptors.request.use(config => {
+  // 请求头添加token
+  config.headers.Authorization = 'Bearer ' + store.state.token;
   return config;
 });
 

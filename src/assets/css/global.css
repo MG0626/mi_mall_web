@@ -8,3 +8,21 @@ body{
   margin-right: auto;
   margin-left: auto;
 }
+
+.el-carousel__indicators{
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.is-active .el-carousel__button{
+  background-color: #ff6700;
+}
+.el-carousel__button{
+  background-color: #ccc;
+}
+
+img{
+  display: block;
+}

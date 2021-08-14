@@ -5,8 +5,8 @@
         <div class="category">{{ item.name }}</div>
         <el-row class="list" type="flex">
           <el-col :span="24 / 5" v-for="item2 in item.children" :key="item2.id">
-            <el-card shadow="hover" :body-style="{ padding: 0 }">
-              <el-image :src="item2.cover" fit="contain"> </el-image>
+            <el-card shadow="hover" :body-style="{ padding: 0 }" @click.native="handleToGoods(item2.id)">
+              <el-image :src="item2.cover" fit="contain"></el-image>
               <div class="title">{{ item2.name }}</div>
               <div class="desc">{{ item2.goods_desc }}</div>
               <div class="price">{{ item2.price }}元</div>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       goods: [],
-    };
+    }
   },
   created() {
     // 获取商品列表
@@ -40,6 +40,14 @@ export default {
       const { data } = await this.$http.get('home/goods');
       this.goods = data;
     },
+    // 点击跳转到商品页面
+    handleToGoods(id){
+      // 跳转，并且重新打开页面
+      const { href } = this.$router.resolve(`/goods/${id}`);
+      window.open(href, '_blank');
+      // 让滚动条归零
+      window.scrollTo(0, 0);
+    }
   },
 };
 </script>
@@ -76,6 +84,7 @@ export default {
             font-size: 14px;
             font-weight: 400;
             text-align: center;
+            cursor: pointer;
 
             &:hover {
               transform: translateY(-2px);

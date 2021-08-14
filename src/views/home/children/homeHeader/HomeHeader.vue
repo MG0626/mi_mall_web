@@ -34,17 +34,17 @@
         </div>
         <div class="topbar-info">
           <!-- 用户登录后显示 -->
-          <div class="user" v-if="true">
+          <div class="user" v-if="$store.state.token">
             <div class="info">
               <div class="name">
-                <span>cmg</span>
+                <span>{{$store.state.info.name}}</span>
                 <i class="el-icon-arrow-down"></i>
               </div>
 
               <div class="menu">
                 <div class="container">
                   <div class="item">个人中心</div>
-                  <div class="item">退出登录</div>
+                  <div class="item" @click="handleLogOut">退出登录</div>
                 </div>
               </div>
             </div>
@@ -52,8 +52,8 @@
           </div>
           <!-- 未登录显示 -->
           <div class="user" v-else>
-            <a href="">登录</a>
-            <a href="">注册</a>
+            <router-link to="/user/login" >登录</router-link>
+            <router-link to="/user/register">注册</router-link>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
 
           <el-card class="list"  shadow="never">
             <el-row>
-              <el-col v-for="(item, index) in nav_list" :key="index" :span="4">
+              <el-col v-for="item in nav_list" :key="item.id" :span="4" @click.native="handleToGoods(item.id)">
                 <div class="image">
                   <el-image
                     :src="item.cover"
@@ -119,6 +119,22 @@ export default {
       // 清空上次数据
       this.nav_list = [];
       this.nav_list = data;
+    },
+    // 点击跳转到商品页面
+    handleToGoods(id){
+      // 跳转，并且重新打开页面
+      const { href } = this.$router.resolve(`/goods/${id}`);
+      window.open(href, '_blank');
+      // 让滚动条归零
+      window.scrollTo(0, 0);
+    },
+    // 处理退出登录
+    handleLogOut(){
+      // 清除缓存
+      window.localStorage.removeItem('info');
+      window.localStorage.removeItem('token');
+      // 返回首页
+      window.open('/', '_self');
     }
   }
 };
@@ -224,19 +240,21 @@ export default {
             width: 110px;
             position: absolute;
             top: 40px;
-            right: 0;
-            left: 0;
+            z-index: 3;
             color: #000;
+            height: 0;
+            transition: height .5s;
+            overflow: hidden;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
             .container{
               width: 100%;
-              height: 0;
               background-color: #fff;
-              transition: height .2s ease-out;
-              overflow: hidden;
               .item{
                 height: 30px;
                 line-height: 30px;
+                opacity: 0;
                 cursor: pointer;
+                transition: opacity .5s;
                 &:hover{
                   color: #ff6700;
                   background-color: #F5F5F5;
@@ -248,9 +266,11 @@ export default {
             color: #000;
             background-color: #fff;
             .menu{
+              height: 60px;
               .container{
-                height: 60px;
-                padding: 7px 0;
+                .item{
+                  opacity: 1;
+                }
               }
             }
           }
@@ -319,6 +339,7 @@ export default {
               .el-col{
                 text-align: center;
                 font-size: 12px;
+                cursor: pointer;
                 .image{
                   width: 160px;
                   height: 110px;

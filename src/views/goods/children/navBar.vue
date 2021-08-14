@@ -3,10 +3,10 @@
     <div class="container">
       <!-- 导航栏区域 -->
       <div class="header">
-        <div class="title">小米11 Ultra</div>
+        <div class="title">{{name}}</div>
         <div class="nav">
-          <div class="detail">概述页</div>
-          <div class="buy">立即购买</div>
+          <div class="detail" v-if="currentComponent === 'buy'" @click="handleChangeComponent('detail')">概述页</div>
+          <div class="buy" v-else @click="handleChangeComponent('buy')">立即购买</div>
         </div>
       </div>
       <!-- 动态组件区域 -->
@@ -15,7 +15,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    // 当前显示的组件
+    currentComponent: {
+      type: String,
+      default: 'buy'
+    },
+    // 商品信息
+    name: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    // 切换组件
+    handleChangeComponent(name){
+      this.$emit('handleChangeComponent', name);
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -39,16 +58,13 @@ export default {};
       }
 
       .nav {
-        width: 180px;
         height: 30px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
         color: #616161;
         font-size: 14px;
         cursor: pointer;
 
         .detail {
+          line-height: 30px;
           &:hover {
             color: #ff6700;
           }

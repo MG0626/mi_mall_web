@@ -2,7 +2,7 @@
   <div class="carousel">
     <div class="container">
       <el-carousel height="460px">
-        <el-carousel-item v-for="item in list" :key="item.id">
+        <el-carousel-item v-for="item in list" :key="item.id" @click.native="handleToGoods(item.goods_id)">
           <el-image
             :src="item.url"
             fit="contain">
@@ -30,6 +30,14 @@
       async getCarouselData(){
         const { data } = await this.$http.get('home/carousel');
         this.list = data;
+      },
+      // 点击跳转到商品页面
+      handleToGoods(id){
+        // 跳转，并且重新打开页面
+        const { href } = this.$router.resolve(`/goods/${id}`);
+        window.open(href, '_blank');
+        // 让滚动条归零
+        window.scrollTo(0, 0);
       }
     }
   }
@@ -43,6 +51,7 @@
       .el-carousel__item {
         display: flex;
         align-items: center;
+        cursor: pointer;
       }
     }
   }
