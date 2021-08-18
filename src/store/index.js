@@ -12,7 +12,9 @@ const state = {
   info: JSON.parse(window.localStorage.getItem('info')) || {},
   token: JSON.parse(window.localStorage.getItem('token')) || '',
   // 购物车列表
-  carts: []
+  carts: [],
+  // 当前结算的商品信息
+  currentPayInfo: {}
 }
 
 export default new Vuex.Store({

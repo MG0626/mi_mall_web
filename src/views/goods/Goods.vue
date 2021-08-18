@@ -99,7 +99,7 @@ export default {
       const { data } = await this.$http.get(`/goods/${this.id}/detail`);
       this.detail = data;
       // 修改title
-      document.title = this.detail.name;
+      // document.title = this.detail.name;
     }
   },
 };

@@ -13,12 +13,12 @@ const actions = {
   // 获取购物车
   getCarts: async function({ commit, state }){
     // 获取购物车列表
-    const { data } = await http.get(`/cart/list/${state.info.id}`);
-    commit('addCarts', data);
+    const { data, status } = await http.get(`/cart/list/${state.info.id}`);
+    status === 200 && commit('addCarts', data);
   },
-  // 添加购物车
-  updateCart({ commit }, products){
-    commit('addCart', products);
+  // 当前结算的商品
+  saveCurrentPayInfo({ commit }, products){
+    commit('saveCurrentPayInfo', products);
   }
 }
 

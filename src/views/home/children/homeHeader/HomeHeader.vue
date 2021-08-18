@@ -18,17 +18,34 @@
           <a href="#">智能生活</a>
           <a href="#">Select Location</a>
         </div>
-        <div class="topbar-cart">
-          <router-link to="/cart">
-            <i class="el-icon-shopping-cart-1"></i>
+        <div class="topbar-cart" @mouseenter="handleCartMouseEnter">
+          <router-link to="/cart" :class="length === 0 ? '' : 'cart-full'">
+            <i :class="length === 0 ? 'el-icon-shopping-cart-2' : 'el-icon-shopping-cart-full'"></i>
             <span>购物车</span>
-            <span>(0)</span>
+            <span>({{length}})</span>
           </router-link>
 
-          <div class="cart-menu">
+          <div 
+            :class="['cart-menu', { 'active': length !== 0 }]" 
+            v-loading="loading" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="#fff">
             <el-row>
-              <el-col></el-col>
-              <el-col v-if="true" class="content">购物车中还没有商品，赶紧选购吧</el-col>
+              <el-col  v-for="item in $store.state.carts" :key="item.id">
+                <div class="img">
+                  <img :src="item.goods_info.cover" width="100%" height="100%" />
+                </div>
+                <div class="title">{{item.goods_info.name + ' ' +  item.version + ' ' + item.color}}</div>
+                <div class="price-count">{{item.unit_price}}元 x {{item.count}}</div>
+              </el-col>
+              <el-col class="cart-bar" v-if="length !== 0">
+                <div class="other">
+                  <span>共 <em>{{length}}</em> 件商品</span>
+                  <span><em>{{total}}元</em></span>
+                </div>
+                <div class="buy"><router-link to="/cart">去购物车结算</router-link></div>
+              </el-col>
+              <el-col v-else class="content">购物车中还没有商品，赶紧选购吧</el-col>
             </el-row>
           </div>
         </div>
@@ -43,12 +60,11 @@
 
               <div class="menu">
                 <div class="container">
-                  <div class="item">个人中心</div>
+                  <div class="item"><a href="#">我的订单</a></div>
                   <div class="item" @click="handleLogOut">退出登录</div>
                 </div>
               </div>
             </div>
-            <a href="#">我的列表</a>
           </div>
           <!-- 未登录显示 -->
           <div class="user" v-else>
@@ -61,9 +77,9 @@
     <!-- 底部导航栏 -->
     <div class="site-header">
       <div class="container">
-        <div class="logo">
+        <router-link :to="$route.path === '/' ? '' : '/'" class="logo">
           <img src="../../../../assets/logo.png" alt="">
-        </div>
+        </router-link>
         <div class="nav">
           <div class="item" @mouseenter="handleElMouseEnter(nav.children)" v-for="(nav, index) in navs" :key="index">
             <div class="title">{{nav.name}}</div>
@@ -101,7 +117,9 @@ export default {
     return {
       navs: [],
       // 当前显示的数据
-      nav_list: []
+      nav_list: [],
+      // 购物车加载loading
+      loading: true
     }
   },
   created(){
@@ -135,6 +153,30 @@ export default {
       window.localStorage.removeItem('token');
       // 返回首页
       window.open('/', '_self');
+    },
+    // 鼠标悬停在购物车触发的事件
+    handleCartMouseEnter(){
+      // 打开loading
+      this.loading = true;
+      // 获取购物车列表
+      this.$store.dispatch('getCarts').then(res => {
+        // 延迟关闭loading
+        setTimeout(() => this.loading = false, 500);
+      });
+    }
+  },
+  computed: {
+    // 购物车列表数量
+    length(){
+      return this.$store.state.carts.length;
+    },
+    // 总价格
+    total(){
+      let price = 0;
+      this.$store.state.carts.forEach(v => {
+        price += v.unit_price * v.count;
+      })
+      return price;
     }
   }
 };
@@ -173,7 +215,7 @@ export default {
       float: right;    
       width: 120px;
       height: 40px;
-      margin-left: 15px;
+      margin-left: 10px;
       font-size: 12px;
       position: relative;
       a{
@@ -186,22 +228,77 @@ export default {
         transition: all .5s;
         margin: 0;
       }
+      .cart-full{
+        background-color: #ff6700;
+        color: #fff;
+      }
       .cart-menu{
         position: absolute;
         right: 0;
         top: 40px;
-        z-index: 2;
+        z-index: 3;
         height: 0px;
         width: 316px;
+        color: #000;
         background-color: #fff;
         transition: height .3s;
         overflow: hidden;
         box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
 
-        .content{
-          text-align: center;
-          line-height: 100px;
-          color: #000;
+        .el-row{
+          .el-col{
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 10px;
+            padding-right: 20px;
+            .img{
+              width: 60px;
+            }
+            .title{
+              width: 130px;
+              font-size: 12px;
+              line-height: 15px;
+            }
+          }
+          .content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .cart-bar{
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #FAFAFA;
+            color: #b0b0b0;
+            padding: 0 20px;
+            .other{
+              font-size: 12px;
+              line-height: 24px;
+              span:nth-child(2){
+                display: block;
+                font-size: 18px;
+              }
+              em{
+                color: #ff6700;
+                font-style: normal;
+              }
+            }
+            .buy{
+              width: 130px;
+              height: 40px;
+              a{
+                background-color: #ff6700;
+                color: #fff;
+                font-size: 14px;
+                text-align: center;
+              }
+            }
+          }
         }
       }
 
@@ -213,18 +310,20 @@ export default {
         .cart-menu{
           height: 100px;
         }
+        .active{
+          height: auto;
+        }
       }
     }
     .topbar-info{
       float: right;
-      display: flex;
 
       .user{
         display: flex;
         .info{
           margin: 0 5px;
           position: relative;
-          width: 110px;
+          width: 90px;
           text-align: center;
           .name{
             display: flex;
@@ -238,7 +337,7 @@ export default {
             }
           }
           .menu{
-            width: 110px;
+            width: 90px;
             position: absolute;
             top: 40px;
             z-index: 3;
@@ -256,9 +355,16 @@ export default {
                 opacity: 0;
                 cursor: pointer;
                 transition: opacity .5s;
+                a{
+                  text-decoration: none;
+                  color: #000;
+                }
                 &:hover{
                   color: #ff6700;
                   background-color: #F5F5F5;
+                  a{
+                    color: inherit;
+                  }
                 }
               }
             }

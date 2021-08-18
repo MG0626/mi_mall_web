@@ -16,6 +16,10 @@ const mutations = {
   // 添加购物车
   addCart(state, payload){
     state.carts.push(payload);
+  },
+  // 当前结算的商品
+  saveCurrentPayInfo(state, payload){
+    state.currentPayInfo = payload;
   }
 }
 

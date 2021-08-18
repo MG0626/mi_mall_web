@@ -18,6 +18,10 @@ const routes = [
       {
         path: '/goods/:id',
         component: () => import('../views/goods/Goods')
+      },
+      {
+        path: '/order',
+        component: () => import('../views/order/Order')
       }
     ]
   },
@@ -41,7 +45,11 @@ const routes = [
     component: () => import('../views/cart/Cart')
   },
   {
-    path: '/pay',
+    path: '/checkout',
+    component: () => import('../views/checkout/Checkout')
+  },
+  {
+    path: '/pay/:order',
     component: () => import('../views/pay/Pay')
   }
 ]
