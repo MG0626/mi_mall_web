@@ -14,12 +14,11 @@
 
           <div class="menu">
             <div class="menu-list">
-              <div class="item">个人中心</div>
               <div class="item" @click="handleLogOut">退出登录</div>
             </div>
           </div>
         </div>
-        <a href="#">我的订单</a>
+        <router-link to="/order">我的订单</router-link>
       </div>
     </div>
   </div>
@@ -121,7 +120,7 @@
           color: #000;
           background-color: #fff;
           .menu {
-            height: 60px;
+            height: 30px;
             .menu-list {
               .item {
                 opacity: 1;

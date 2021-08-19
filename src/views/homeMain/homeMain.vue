@@ -17,5 +17,6 @@ export default {
 
 <style lang="less" scoped>
 .main {
+  background-color: #fff;
 }
 </style>

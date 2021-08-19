@@ -5,7 +5,7 @@
     <!-- 内容区域 -->
     <router-view />
     <!-- 尾部区域 -->
-    <home-footer />
+    <custom-footer />
     <!-- 回到顶部 -->
     <!-- <el-backtop target=".home">
       <div class="el-icon-top"></div>
@@ -18,17 +18,17 @@
 
 <script>
 import BackTop from '../../components/backTop/BackTop.vue';
-import HomeFooter from './children/homeFooter/homeFooter.vue';
+import CustomFooter from '../../components/customFooter/CustomFooter.vue';
 import HomeHeader from './children/homeHeader/HomeHeader.vue';
 export default {
-  components: { HomeHeader, HomeFooter, BackTop }
+  components: { HomeHeader, CustomFooter, BackTop }
 };
 </script>
 
 <style lang="less" scoped>
 .home{
   // position: relative;
-  background-color: #fff;
+  // background-color: #fff;
   .back-top{
     position: fixed;
     bottom: 44px;

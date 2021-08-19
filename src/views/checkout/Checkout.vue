@@ -90,6 +90,9 @@
       </div>
     </div>
 
+    <!-- 尾部区域 -->
+    <custom-footer />
+
     <!-- 添加新地址的dialog -->
     <el-dialog
       :title="is_edit ? '修改收货地址' : '添加收货地址'"
@@ -131,6 +134,7 @@
 </template>
 
 <script>
+import CustomFooter from '../../components/customFooter/CustomFooter.vue';
 // 顶部导航
 import NavBar from '../../components/navBar/NavBar.vue';
 // 省市区/县数据
@@ -311,7 +315,8 @@ import city from '../../utils/citydata';
       }
     },
     components:{
-      NavBar
+      NavBar,
+      CustomFooter
     }
   }
 </script>

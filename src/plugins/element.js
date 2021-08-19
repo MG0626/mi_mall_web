@@ -22,7 +22,9 @@ import {
   MessageBox,
   Loading,
   Dialog,
-  Cascader
+  Cascader,
+  Tabs,
+  TabPane
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -46,6 +48,8 @@ Vue.use(Checkbox);
 Vue.use(InputNumber);
 Vue.use(Dialog);
 Vue.use(Cascader);
+Vue.use(Tabs);
+Vue.use(TabPane);
 Vue.use(Loading.directive);
 
 Vue.prototype.$message = Message;

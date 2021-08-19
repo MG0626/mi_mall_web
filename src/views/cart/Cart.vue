@@ -58,13 +58,17 @@
         </div>
       </div>
     </div>
+
+    <!-- 尾部 -->
+    <custom-footer />
   </div>
 </template>
 
 <script>
+import CustomFooter from '../../components/customFooter/CustomFooter.vue';
 import NavBar from '../../components/navBar/NavBar.vue';
 export default {
-  components: { NavBar },
+  components: { NavBar, CustomFooter },
   data(){
     return {
       // 全选的值
@@ -116,6 +120,8 @@ export default {
     },
     // 点击前往结算页面
     handleBuyGoods(){
+      // 判断当前是否选中有商品
+      if(this.selectCount === 0) return this.$message.error('请选择需要购买的商品');
       // 获取选中的商品
       const goods = this.list.filter(v => v.is_status === true);
       // 保存到vuex的数据
@@ -182,7 +188,7 @@ export default {
 .cart {
   padding-bottom: 20px;
   .cart-list{
-    margin-top: 50px;
+    margin: 50px 0;
     .container{
       position: relative;
       .list{

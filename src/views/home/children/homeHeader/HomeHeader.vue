@@ -60,7 +60,7 @@
 
               <div class="menu">
                 <div class="container">
-                  <div class="item"><a href="#">我的订单</a></div>
+                  <div class="item"><router-link to="/order">我的订单</router-link></div>
                   <div class="item" @click="handleLogOut">退出登录</div>
                 </div>
               </div>
