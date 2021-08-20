@@ -87,7 +87,6 @@ import NavBar from '../../components/navBar/NavBar.vue'
           this.$message.success('已经付款过了~');
           return this.$router.go(-1);
         }
-        console.log(data);
         this.info = data;
       },
       // 付款

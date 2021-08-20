@@ -30,9 +30,6 @@ export default {
       }
     };
   },
-  created(){
-    console.log(this.$route);
-  },
   methods: {
     // 登录
     async handleClick(){

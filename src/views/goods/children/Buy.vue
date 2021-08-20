@@ -100,12 +100,18 @@
         this.$store.dispatch('getCarts');
       }
     },
+    mounted(){
+      // 进入页面默认选中第一项
+      if(this.detail.versions){
+        this.currentVersion = this.detail.versions[0].name;
+        this.currentColor = this.detail.colors[0];
+      }
+    },
     computed: {
       // 当前选中版本的价格
       currentPrice(){
         // 获取版本数据
         const versions = this.detail.versions || [];
-        console.log(versions);
         // 获取当前版本价格
         let price = 0;
         for (const item of versions) {

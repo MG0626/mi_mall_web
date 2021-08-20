@@ -301,6 +301,8 @@ import city from '../../utils/citydata';
       },
       // 结算
       async handleSettlement(){
+        // 判断当前是否选中地址
+        if(this.address_list.length === 0) return this.$message.error('请添加收货人地址');
         // 整合数据
         const obj = {
           goods: this.payInfo.goods,
