@@ -3,7 +3,7 @@ import axios from 'axios';
 import store from '../store';
 
 const http = axios.create({
-  baseURL: 'http://localhost:4001',
+  baseURL: 'http://cenmingguang.top:4444',
   timeout: 5000
 });
 

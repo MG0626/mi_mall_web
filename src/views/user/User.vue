@@ -35,7 +35,7 @@ export default {
   methods: {
     handleNavClick(value){
       // 路由地址
-      const path = `/${value}`;
+      const path = `/user/${value}`;
       // 跳转路由
       if(this.$route.path !== path){
         this.$router.push(path);
