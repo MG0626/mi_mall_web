@@ -119,7 +119,7 @@ export default {
       // 当前显示的数据
       nav_list: [],
       // 购物车加载loading
-      loading: true
+      loading: false
     }
   },
   created(){
@@ -156,13 +156,15 @@ export default {
     },
     // 鼠标悬停在购物车触发的事件
     handleCartMouseEnter(){
-      // 打开loading
-      this.loading = true;
-      // 获取购物车列表
-      this.$store.dispatch('getCarts').then(res => {
-        // 延迟关闭loading
-        setTimeout(() => this.loading = false, 500);
-      });
+      // 获取购物车列表，登录才获取
+      if (this.$store.state.token) {
+        // 打开loading
+        this.loading = true;
+        this.$store.dispatch('getCarts').then(() => {
+          // 延迟关闭loading
+          setTimeout(() => this.loading = false, 500);
+        });
+      }
     }
   },
   computed: {

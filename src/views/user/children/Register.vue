@@ -115,7 +115,7 @@ export default {
       
       // 成功
       this.$message.success('注册成功，请登录~');
-      this.$router.push('/login');
+      this.$router.push('/user/login');
     }
   },
   computed: {

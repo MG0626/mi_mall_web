@@ -81,6 +81,8 @@ router.beforeEach((to, form, next) => {
 
   // 判断当前是否访问login
   if(to.path === '/user/login'){
+    // 保存访问前的路由地址
+    to.meta.formPath = form.path;
     // 判断是否有token，有token就不给访问
     if(token) return next(form.path)
   }

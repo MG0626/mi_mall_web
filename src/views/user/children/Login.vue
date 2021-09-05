@@ -47,6 +47,7 @@ export default {
       // 弹出提示
       this.$message.success(`登录成功，欢迎${data.name}~`);
       // 返回上一层
+      if(this.$route.meta.formPath === '/user/register') return this.$router.push('/');
       this.$router.go(-1);
     }
   },
